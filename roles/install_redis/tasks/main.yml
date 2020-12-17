@@ -1,0 +1,18 @@
+---
+
+- name: Installing Redis if it absent.
+  dnf:
+    name: "{{ redis_module }}"
+    update_cache: yes
+    state: present
+  when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '8'
+
+- name: Configuring Redis.
+  template:
+    src: redis.conf.j2
+    dest: /etc/redis.conf
+    mode: 0640
+  notify: restart redis
+
+- name: Setting Redis to autostart.
+  service: "name=redis state=started enabled=yes"

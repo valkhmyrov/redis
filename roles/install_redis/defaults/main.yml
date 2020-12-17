@@ -1,0 +1,11 @@
+---
+
+redis_module: '@redis:{{redis_version}}'
+redis_port: 6379
+redis_bind_interface: "127.0.0.1 ::1 {{ansible_default_ipv4.address}}"
+redis_timeout: 300
+redis_loglevel: "notice"
+redis_databases: 16
+redis_maxmemory: 0
+redis_maxmemory_policy: "noeviction"
+redis_maxmemory_samples: 5
