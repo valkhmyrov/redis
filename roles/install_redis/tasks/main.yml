@@ -7,6 +7,15 @@
     state: present
   when: ansible_os_family == 'RedHat' and ansible_distribution_major_version == '8'
 
+- name: Creating directories if it does not exists.
+  file:
+    path: "{{ item }}"
+    owner: redis
+    group: redis
+    state: directory
+    mode: 0750
+  loop: "{{ redis_dirs|flatten(levels=1) }}"
+
 - name: Configuring Redis.
   template:
     src: redis.conf.j2
